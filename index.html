@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prépa Brigadier-chef — Fiches & QCM</title>
+<style>
+:root{
+  --bleu:#0a2c5c; --bleu2:#12407f; --bleu3:#1d5fb5; --or:#c8a046;
+  --bg:#0e1726; --card:#162338; --card2:#1d2c45; --txt:#eaf0fa; --muted:#9fb0cb;
+  --ok:#2ecc71; --ko:#e74c3c; --line:#2a3a57; --warn:#e0a93b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:linear-gradient(160deg,#0b1320,#0e1726 55%,#101d33);color:var(--txt);min-height:100vh;line-height:1.55}
+a{color:var(--bleu3)}
+header{background:linear-gradient(120deg,var(--bleu),var(--bleu2));border-bottom:3px solid var(--or);padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.logo{width:42px;height:42px;border-radius:9px;background:radial-gradient(circle at 30% 30%,var(--or),#8a6a1e);display:flex;align-items:center;justify-content:center;font-weight:800;color:#1a1205;font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+header h1{font-size:1.15rem;font-weight:700;letter-spacing:.3px}
+header .sub{font-size:.78rem;color:#cfe0ff;font-weight:400}
+nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+nav button{background:rgba(255,255,255,.06);color:#dce8ff;border:1px solid rgba(255,255,255,.12);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;transition:.15s}
+nav button:hover{background:rgba(255,255,255,.15)}
+nav button.active{background:var(--or);color:#1a1205;border-color:var(--or)}
+.wrap{max-width:1060px;margin:0 auto;padding:24px 18px 70px}
+.view{display:none;animation:fade .25s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.section{font-size:1.35rem;margin-bottom:4px;color:#fff}
+.lead{color:var(--muted);margin-bottom:22px;font-size:.92rem}
+
+/* THEME CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.tcard{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+.tcard:hover{transform:translateY(-3px);border-color:var(--bleu3);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.tcard .ic{font-size:1.9rem;margin-bottom:8px}
+.tcard h3{font-size:1.05rem;margin-bottom:6px}
+.tcard p{font-size:.82rem;color:var(--muted);margin-bottom:14px;min-height:34px}
+.bar{height:7px;background:#0c1422;border-radius:6px;overflow:hidden}
+.bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--bleu3),var(--or));transition:width .5s}
+.tcard .meta{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-top:7px}
+
+/* FICHES */
+.fiche{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
+.fiche h3{color:var(--or);font-size:1.1rem;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:8px;display:flex;align-items:center;gap:8px}
+.fiche ul{list-style:none}
+.fiche li{padding:7px 0 7px 24px;position:relative;font-size:.93rem;border-bottom:1px dashed rgba(255,255,255,.06)}
+.fiche li:last-child{border-bottom:0}
+.fiche li:before{content:"▸";position:absolute;left:4px;color:var(--bleu3)}
+.fiche li b{color:#fff}
+.tag{display:inline-block;background:rgba(29,95,181,.25);color:#9cc4ff;border:1px solid rgba(29,95,181,.5);border-radius:6px;font-size:.68rem;padding:2px 7px;margin-left:6px;font-weight:600}
+.tag.law{background:rgba(200,160,70,.18);color:var(--or);border-color:rgba(200,160,70,.5)}
+.tag.tc{background:rgba(224,169,59,.15);color:var(--warn);border-color:rgba(224,169,59,.5)}
+.backbtn{background:transparent;border:1px solid var(--line);color:var(--muted);padding:7px 14px;border-radius:8px;cursor:pointer;margin-bottom:16px;font-size:.85rem}
+.backbtn:hover{color:#fff;border-color:var(--bleu3)}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+
+/* QUIZ */
+.qsetup{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:8px 14px;border-radius:20px;cursor:pointer;font-size:.83rem;transition:.15s}
+.chip.sel{background:var(--bleu3);border-color:var(--bleu3);color:#fff}
+.btn{background:var(--or);color:#1a1205;border:0;padding:12px 22px;border-radius:9px;font-weight:700;cursor:pointer;font-size:.92rem;transition:.15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:var(--bleu3);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.qbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.8rem;color:var(--muted)}
+.qprog{height:6px;background:#0c1422;border-radius:6px;overflow:hidden;margin-bottom:18px}
+.qprog>span{display:block;height:100%;background:var(--or);transition:width .3s}
+.qtext{font-size:1.08rem;font-weight:600;margin-bottom:18px;color:#fff}
+.opt{display:block;width:100%;text-align:left;background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:14px 16px;border-radius:10px;margin-bottom:10px;cursor:pointer;font-size:.92rem;transition:.12s}
+.opt:hover{border-color:var(--bleu3);background:#22324c}
+.opt.correct{background:rgba(46,204,113,.16);border-color:var(--ok)}
+.opt.wrong{background:rgba(231,76,60,.16);border-color:var(--ko)}
+.opt .mk{float:right;font-weight:800}
+.expl{background:#0f1b2e;border-left:3px solid var(--or);padding:14px 16px;border-radius:8px;margin-top:6px;font-size:.88rem;display:none}
+.expl.show{display:block}
+.expl .lbl{font-weight:700;color:var(--or);display:block;margin-bottom:4px}
+.expl .src{border:0;padding:0;margin-top:8px}
+.qnav{display:flex;justify-content:space-between;gap:10px;margin-top:8px}
+
+/* RESULT */
+.result{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px;text-align:center}
+.score-ring{width:140px;height:140px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:2.1rem;font-weight:800;position:relative}
+.result h3{font-size:1.3rem;margin-bottom:8px}
+.result p{color:var(--muted);margin-bottom:18px}
+
+/* PROGRESS DASHBOARD */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+.stat{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
+.stat .n{font-size:1.8rem;font-weight:800;color:var(--or)}
+.stat .l{font-size:.76rem;color:var(--muted);margin-top:4px}
+.prow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.prow .top{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:8px}
+.prow .pct{font-weight:700}
+.badge{display:inline-block;font-size:.7rem;padding:3px 9px;border-radius:20px;font-weight:700;margin-left:8px}
+.b-todo{background:rgba(159,176,203,.15);color:var(--muted)}
+.b-prog{background:rgba(224,169,59,.18);color:var(--warn)}
+.b-done{background:rgba(46,204,113,.18);color:var(--ok)}
+.reset{background:transparent;border:1px solid var(--ko);color:#f1948a;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.82rem;margin-top:10px}
+.note{background:rgba(224,169,59,.1);border:1px solid rgba(224,169,59,.35);border-radius:10px;padding:12px 16px;font-size:.84rem;color:#f0d9a8;margin-bottom:18px}
+.toggle{display:flex;gap:8px;margin-bottom:16px}
+.toggle button{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--muted);padding:10px;border-radius:9px;cursor:pointer;font-weight:600;font-size:.85rem}
+.toggle button.on{background:var(--bleu2);color:#fff;border-color:var(--bleu3)}
+footer{text-align:center;color:var(--muted);font-size:.74rem;padding:24px;border-top:1px solid var(--line);margin-top:30px}
+@media(max-width:600px){header h1{font-size:1rem}.wrap{padding:16px 12px 60px}}
+</style>
+</head>
+<body class="locked">
+
+<!-- ============================ ÉCRAN D'ACCÈS (LICENCE) ============================ -->
+<style>
+body.locked{overflow:hidden}
+body.locked header,body.locked .wrap,body.locked footer{display:none!important}
+#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:radial-gradient(circle at 30% 10%,#12407f,#0b1320 60%);}
+#gate.hidden{display:none}
+.gcard{width:100%;max-width:430px;background:linear-gradient(160deg,#162338,#1d2c45);border:1px solid #2a3a57;border-radius:18px;padding:34px 30px;box-shadow:0 18px 50px rgba(0,0,0,.5);text-align:center;color:#eaf0fa;font-family:'Segoe UI',system-ui,sans-serif}
+.gcard .glogo{width:60px;height:60px;border-radius:13px;margin:0 auto 16px;background:radial-gradient(circle at 30% 30%,#c8a046,#8a6a1e);display:flex;align-items:center;justify-content:center;font-weight:800;color:#1a1205;font-size:26px}
+.gcard h1{font-size:1.25rem;margin-bottom:6px}
+.gcard p.sub{color:#9fb0cb;font-size:.9rem;margin-bottom:22px}
+.gcard label{display:block;text-align:left;font-size:.8rem;color:#9fb0cb;margin-bottom:6px;font-weight:600}
+.gcard input{width:100%;padding:14px 16px;border-radius:10px;border:1px solid #2a3a57;background:#0e1726;color:#fff;font-size:1.05rem;letter-spacing:1px;text-align:center;text-transform:uppercase}
+.gcard input:focus{outline:none;border-color:#1d5fb5}
+.gcard button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:10px;background:#c8a046;color:#1a1205;font-weight:800;font-size:1rem;cursor:pointer}
+.gcard button:disabled{opacity:.5;cursor:wait}
+.gmsg{min-height:20px;margin-top:14px;font-size:.86rem;font-weight:600}
+.gmsg.err{color:#f1948a}.gmsg.ok{color:#7ee2a8}
+.gcard .buy{margin-top:20px;font-size:.78rem;color:#9fb0cb;border-top:1px solid #2a3a57;padding-top:16px}
+.gcard .buy a{color:#9cc4ff;text-decoration:none}
+.gcard .legal{margin-top:12px;font-size:.68rem;color:#6f819c;line-height:1.5}
+</style>
+<div id="gate">
+  <div class="gcard">
+    <div class="glogo">PN</div>
+    <h1>Prépa Brigadier-chef</h1>
+    <p class="sub">Accès réservé — saisis ton code personnel</p>
+    <label for="gateCode">Code d'accès</label>
+    <input id="gateCode" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX" maxlength="40">
+    <button id="gateBtn">Déverrouiller l'application</button>
+    <div class="gmsg" id="gateMsg"></div>
+    <div class="buy">Pas encore de code ? Obtiens ton accès :<br>
+      <a id="buyLink" href="mailto:alexandrebetonpro@gmail.com?subject=Acc%C3%A8s%20Pr%C3%A9pa%20Brigadier-chef">Demander un accès</a>
+    </div>
+    <div class="legal">Accès personnel et nominatif. Toute revente, partage ou diffusion du code ou du contenu est interdit et entraîne la révocation immédiate de l'accès.</div>
+  </div>
+</div>
+<script>
+/* ===== SYSTÈME DE CODES (hors-ligne, sans installation) =====
+   - Un code valide a le format  PBC-BASE-XXXX  où XXXX dépend d'un calcul secret.
+   - Seul toi peux générer des codes valides (avec generateur-codes.html),
+     car ils dépendent du "sel" secret ci-dessous. GARDE CE SEL CONFIDENTIEL.
+   - Pour invalider d'anciens codes : change le sel et renvoie de nouveaux codes. */
+const PBC_SALT = "iNov@-PrepaBC-#2027-7Qx9-secret";
+const PBC_CONTACT = "alexandrebetonpro@gmail.com";
+/* ============================================================ */
+(function(){
+  const $=id=>document.getElementById(id);
+  const gate=$("gate"), inp=$("gateCode"), btn=$("gateBtn"), msg=$("gateMsg");
+  function setMsg(t,k){msg.textContent=t||"";msg.className="gmsg "+(k||"");}
+  function device(){let d=localStorage.getItem("pbc_device");if(!d){d="dev-"+Math.random().toString(36).slice(2,10)+Date.now().toString(36);localStorage.setItem("pbc_device",d);}return d;}
+  function sig(base){var s=(base+"|"+PBC_SALT).toUpperCase();var h=0x811c9dc5;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*0x01000193)>>>0;}return ("0000"+h.toString(16)).slice(-4).toUpperCase();}
+  function validCode(code){code=(code||"").trim().toUpperCase();var m=code.match(/^PBC-([A-Z0-9]+)-([A-F0-9]{4})$/);return !!m && sig(m[1])===m[2];}
+  function saved(){try{return JSON.parse(localStorage.getItem("pbc_lic"));}catch(e){return null;}}
+  function unlock(){document.body.classList.remove("locked");gate.classList.add("hidden");}
+  function grant(code){localStorage.setItem("pbc_lic",JSON.stringify({code:code.trim().toUpperCase(),device:device(),ts:Date.now()}));unlock();}
+  function submit(){
+    const code=(inp.value||"").trim();
+    if(!code){setMsg("Saisis ton code d'accès.","err");return;}
+    if(validCode(code)){setMsg("Accès confirmé ✓","ok");grant(code);}
+    else setMsg("Code invalide. Vérifie ta saisie (format PBC-XXXX-XXXX).","err");
+  }
+  btn.textContent="Déverrouiller l'application";
+  btn.addEventListener("click",submit);
+  inp.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+  var bl=$("buyLink");if(bl)bl.href="mailto:"+PBC_CONTACT+"?subject=Acc%C3%A8s%20Pr%C3%A9pa%20Brigadier-chef";
+  // Déjà débloqué sur cet appareil ? On rouvre directement (sans redemander le code).
+  var t=saved();
+  if(t&&t.code&&validCode(t.code)&&t.device===device()) unlock();
+})();
+</script>
+<!-- ============================ FIN ÉCRAN D'ACCÈS ============================ -->
+
+<header>
+  <div class="logo">PN</div>
+  <div>
+    <h1>Prépa Brigadier-chef de police</h1>
+    <div class="sub">Fiches synthétiques · QCM · Suivi de progression</div>
+  </div>
+  <nav>
+    <button data-v="home" class="active">Accueil</button>
+    <button data-v="fiches">Fiches</button>
+    <button data-v="quiz">QCM</button>
+    <button data-v="exam">Examen blanc</button>
+    <button data-v="progress">Progression</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <!-- HOME -->
+  <section id="home" class="view active">
+    <h2 class="section">Tableau de bord</h2>
+    <p class="lead">Révise les 5 thèmes de l'épreuve, teste-toi avec les QCM, et suis ta maîtrise. Contenu issu de tes documents officiels (Académie de Police, IGPN, CSI, APORTT).</p>
+    <div class="stats" id="homeStats"></div>
+    <div class="note">⚖️ <b>Format vérifié (sessions 2027).</b> L'épreuve de Brigadier-chef devient un <b>QCM de 2 h</b> portant sur la <b>gestion du temps de travail</b> et les <b>techniques et la sécurité en intervention</b> (programme commun), avec un <b>programme complémentaire déontologie + management</b> pour l'une des voies. <span style="color:var(--muted)">(Arrêté du 15/12/2021 modifié par l'arrêté du 14/03/2026 — JORF 16/04/2026.) Cette appli est un QCM : format adapté.</span></div>
+    <div class="grid" id="homeThemes"></div>
+  </section>
+
+  <!-- FICHES LIST + DETAIL -->
+  <section id="fiches" class="view">
+    <div id="fichesList">
+      <h2 class="section">Fiches synthétiques</h2>
+      <p class="lead">Choisis un thème pour réviser ses fiches. Une fois lue, une fiche est marquée comme acquise.</p>
+      <div class="grid" id="fichesThemes"></div>
+    </div>
+    <div id="ficheDetail" style="display:none"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="view">
+    <div id="quizSetup">
+      <h2 class="section">QCM d'entraînement</h2>
+      <p class="lead">Sélectionne un ou plusieurs thèmes, puis lance la série. Chaque réponse est expliquée et sourcée.</p>
+      <div class="qsetup">
+        <strong>Thèmes</strong>
+        <div class="chips" id="quizChips"></div>
+        <strong>Nombre de questions</strong>
+        <div class="chips" id="quizCount"></div>
+        <div style="margin-top:16px"><button class="btn" id="startQuiz">Démarrer le QCM ▶</button></div>
+      </div>
+    </div>
+    <div id="quizRun" style="display:none"></div>
+    <div id="quizResult" style="display:none"></div>
+  </section>
+
+  <!-- EXAM -->
+  <section id="exam" class="view">
+    <h2 class="section">Examen blanc</h2>
+    <p class="lead">20 questions tirées au hasard sur l'ensemble des thèmes, dans les conditions de révision. Objectif : ≥ 70 %.</p>
+    <div class="qsetup">
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:14px">L'examen mélange déontologie, temps de travail et TSI, à l'image de l'épreuve réelle.</p>
+      <button class="btn" id="startExam">Lancer l'examen blanc ▶</button>
+    </div>
+    <div id="examRun" style="display:none"></div>
+    <div id="examResult" style="display:none"></div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section id="progress" class="view">
+    <h2 class="section">Ma progression</h2>
+    <p class="lead">Synthèse de ta maîtrise par thème (fiches lues + réussite aux QCM).</p>
+    <div class="stats" id="progStats"></div>
+    <div id="progRows"></div>
+    <button class="reset" id="resetBtn">↺ Réinitialiser toute ma progression</button>
+  </section>
+</div>
+
+<footer>
+  Outil de révision personnel — contenu fidèle aux documents fournis (Académie de Police / DRCPN / IGPN / CSI / Code pénal / APORTT) et au cadre réglementaire de l'examen.<br>
+  Format de l'épreuve vérifié sur Légifrance : arrêté du 15 décembre 2021 modifié par l'arrêté du 14 mars 2026 (JORF du 16 avril 2026). Vérifie l'arrêté d'ouverture de ta session avant l'épreuve.
+</footer>
+
+<script>
+/* ============================ DONNÉES ============================ */
+const THEMES = [
+ {
+  id:"deonto", ic:"⚖️", name:"Déontologie",
+  desc:"Code de déontologie (CSI), 22 manquements, procédure disciplinaire.",
+  fiches:[
+   {t:"Cadre et sources de la déontologie", pts:[
+     "Le <b>code de déontologie de la police et de la gendarmerie nationales</b> figure dans la partie réglementaire du <b>Code de la sécurité intérieure (CSI)</b>, articles <b>R.434-1 et suivants</b>.<span class='tag law'>CSI R.434</span>",
+     "Il s'impose à tous les personnels actifs ; le manquement engage la <b>responsabilité disciplinaire</b> (indépendamment des responsabilités pénale et civile).",
+     "L'<b>IGPN</b> (Inspection générale de la police nationale) a établi une déclinaison des <b>22 manquements</b> professionnels et déontologiques (janvier 2024)."
+   ]},
+   {t:"Les 22 manquements et leurs articles", pts:[
+     "1. Compte rendu hiérarchique <span class='tag law'>R.434-4</span> · 2. Protection par l'autorité hiérarchique <span class='tag law'>R.434-6/7</span>",
+     "3. Probité <span class='tag law'>R.434-9</span> · 4. Impartialité <span class='tag law'>R.434-11</span> · 5. Exemplarité <span class='tag law'>R.434-12</span>",
+     "6. Loyauté · 7. Obéissance · 22. Conscience professionnelle <span class='tag law'>R.434-5</span> (article commun)",
+     "8. Neutralité, laïcité et réserve <span class='tag law'>R.434-29</span> · 9. Discrétion et secret professionnels <span class='tag law'>R.434-8</span>",
+     "10. Crédit et renom de la police nationale <span class='tag law'>R.434-12</span> · 11. Dignité de la personne <span class='tag law'>R.434-14</span>",
+     "12. Protection de la personne interpellée <span class='tag law'>R.434-17</span> · 13. Statut de victime/plaignant <span class='tag law'>R.434-20</span>",
+     "14. Intervention et assistance <span class='tag law'>R.434-19</span> · 15. Courtoisie à l'égard du public <span class='tag law'>R.434-14</span>",
+     "16. Usage de la force ou de la contrainte <span class='tag law'>R.434-18</span> · 17. Utilisation des fichiers <span class='tag law'>R.434-21</span>",
+     "18. Disponibilité <span class='tag law'>R.434-30</span> · 19. Formation professionnelle <span class='tag law'>R.434-6</span> · 20. Discernement <span class='tag law'>R.434-10</span>",
+     "21. Activité / cumul d'activité <span class='tag law'>R.434-13</span>"
+   ]},
+   {t:"Manquements à connaître en détail", pts:[
+     "<b>Probité (R.434-9)</b> : détournement de scellés/objets sensibles, confusion d'intérêts, pratiques corruptives, abus de fonctions.",
+     "<b>Exemplarité (R.434-12)</b> : couvre la vie privée (violences, comportement indigne, usage de stupéfiants, harcèlement, ébriété en service).",
+     "<b>Loyauté (R.434-5)</b> : la <b>rédaction mensongère d'un acte</b> (rapport, PV, main courante) est un manquement à la loyauté.",
+     "<b>Obéissance (R.434-5)</b> : inexécution d'un ordre, violation délibérée d'une règle, <b>non-port délibéré du RIO</b>.",
+     "<b>Usage de la force (R.434-18)</b> : le manquement est l'usage <b>disproportionné</b> de la force/contrainte (sans arme, avec AFI/MFI, avec arme à feu).",
+     "<b>Crédit et renom</b> : l'atteinte peut être commise <b>via un réseau social</b>."
+   ]},
+   {t:"Procédure disciplinaire (PN)", pts:[
+     "La faute disciplinaire est appréciée distinctement de l'infraction pénale : <b>indépendance des procédures</b>.",
+     "Le <b>conseil de discipline</b> est consulté pour les sanctions des 2ᵉ, 3ᵉ et 4ᵉ groupes ; l'<b>avertissement</b> et le <b>blâme</b> (1ᵉʳ groupe) sont prononcés <b>sans</b> conseil de discipline.",
+     "Garanties : respect du <b>contradictoire</b> et des <b>droits de la défense</b> — <b>communication du dossier</b>, possibilité d'être assisté et de citer des témoins.",
+     "Mesure conservatoire : la <b>suspension</b> (≠ sanction) s'accompagne du retrait de l'arme et de la rétention de la carte professionnelle.<span class='tag law'>RGEPN 114-6</span>"
+   ]},
+   {t:"Les 11 sanctions disciplinaires (4 groupes)", pts:[
+     "Pour les fonctionnaires actifs (titulaires), <b>11 sanctions</b> classées en <b>4 groupes</b> (art. 66 de la loi 84-16 du 11 janvier 1984, FPE).",
+     "<b>1ᵉʳ groupe</b> : <b>avertissement</b>, <b>blâme</b>, <b>exclusion temporaire de fonctions ≤ 3 jours</b>.",
+     "<b>2ᵉ groupe</b> : <b>radiation du tableau d'avancement</b>, <b>abaissement d'échelon</b>, <b>exclusion temporaire de 4 à 15 jours</b>, <b>déplacement d'office</b>.",
+     "<b>3ᵉ groupe</b> : <b>rétrogradation</b> (au grade inférieur), <b>exclusion temporaire de 16 jours à 2 ans</b>.",
+     "<b>4ᵉ groupe</b> : <b>mise à la retraite d'office</b>, <b>révocation</b>.",
+     "L'avertissement et le blâme peuvent être prononcés par arrêté du ministre (et délégués aux préfets) ; les sanctions des 2ᵉ à 4ᵉ groupes <b>ne peuvent pas être déléguées</b>."
+   ]}
+  ],
+  quiz:[
+   {q:"Dans quel code figure le code de déontologie de la police nationale ?", o:["Le Code pénal","Le Code de la sécurité intérieure (CSI), partie réglementaire","Le Code de procédure pénale","Le statut général de la fonction publique"], a:1, e:"Le code de déontologie figure aux articles R.434-1 et suivants du Code de la sécurité intérieure (partie réglementaire).", s:"Code de déontologie commenté ; CSI R.434"},
+   {q:"Combien de manquements professionnels et déontologiques l'IGPN a-t-elle déclinés ?", o:["12","18","22","30"], a:2, e:"La déclinaison IGPN (janvier 2024) recense 22 manquements professionnels et déontologiques.", s:"IGPN – Déclinaison des manquements (fiche de synthèse, janvier 2024)"},
+   {q:"La rédaction mensongère d'un rapport ou d'un procès-verbal constitue un manquement au devoir de :", o:["Probité","Loyauté","Discrétion","Disponibilité"], a:1, e:"Le manquement 6.2 vise la loyauté (R.434-5) : rédaction mensongère d'un acte (rapport, PV, main courante…).", s:"IGPN – Manquements, point 6 Loyauté (R.434-5)"},
+   {q:"Le détournement de scellés ou d'objets sensibles (stupéfiants, argent, armes) est un manquement au devoir de :", o:["Exemplarité","Impartialité","Probité","Neutralité"], a:2, e:"Manquement 3.2 : atteinte au devoir de probité (R.434-9) par détournement de scellés et/ou d'objets sensibles.", s:"IGPN – Manquements, point 3 Probité (R.434-9)"},
+   {q:"Quel article du CSI encadre l'usage de la force ou de la contrainte ?", o:["R.434-9","R.434-14","R.434-18","R.434-29"], a:2, e:"L'usage de la force ou de la contrainte relève de l'article R.434-18 du CSI.", s:"CSI R.434-18 ; IGPN – Manquements point 16"},
+   {q:"Le non-port délibéré du RIO constitue un manquement au devoir d':", o:["Obéissance","Exemplarité","Impartialité","Assistance"], a:0, e:"Manquement 7.4 : manquement au devoir d'obéissance (R.434-5) par non-port délibéré du RIO.", s:"IGPN – Manquements, point 7 Obéissance"},
+   {q:"Un comportement indigne dans la vie privée relève d'un manquement au devoir de :", o:["Discrétion","Exemplarité","Disponibilité","Courtoisie"], a:1, e:"L'exemplarité (R.434-12) couvre aussi la vie privée : comportement violent, indigne, usage de stupéfiants, harcèlement, ébriété en service.", s:"IGPN – Manquements, point 5 Exemplarité (R.434-12)"},
+   {q:"L'atteinte au crédit et au renom de la police nationale peut notamment être commise :", o:["Uniquement en service","Par le biais d'un réseau social","Seulement par un gradé","Uniquement par écrit officiel"], a:1, e:"Le manquement 10.2 vise expressément l'atteinte notoire portée au crédit et au renom par le biais d'un réseau social.", s:"IGPN – Manquements, point 10"},
+   {q:"Lorsqu'un fonctionnaire fait l'objet d'une mesure de suspension, l'administration procède :", o:["Au seul retrait de l'arme","Au retrait de l'arme ET à la rétention de la carte professionnelle","À sa révocation immédiate","À aucune mesure conservatoire"], a:1, e:"La suspension (mesure conservatoire) s'accompagne du retrait de l'arme et de la rétention de la carte professionnelle.", s:"RGEPN art. 114-6"},
+   {q:"Le manquement au devoir de discernement correspond à l'article :", o:["R.434-10","R.434-13","R.434-20","R.434-30"], a:0, e:"Le discernement (choix et temps pour agir) relève de l'article R.434-10 du CSI.", s:"IGPN – Manquements, point 20 Discernement"},
+   {q:"L'obligation de se consacrer à son activity et l'encadrement du cumul d'activité relèvent de :", o:["R.434-5","R.434-13","R.434-21","R.434-29"], a:1, e:"Le manquement 21 (activité / cumul d'activité) correspond à l'article R.434-13 du CSI.", s:"IGPN – Manquements, point 21"},
+   {q:"La responsabilité disciplinaire d'un policier dépend-elle d'une condamnation pénale ?", o:["Oui, elle suppose une condamnation pénale préalable","Non, les deux procédures sont indépendantes","Oui, sauf pour les gradés","Seulement en cas de faute grave"], a:1, e:"Les responsabilités disciplinaire et pénale sont indépendantes : un même fait peut être sanctionné disciplinairement sans condamnation pénale.", s:"Procédure disciplinaire dans la PN"},
+   {q:"En combien de groupes les sanctions disciplinaires des fonctionnaires actifs sont-elles classées ?", o:["Deux groupes","Trois groupes","Quatre groupes","Cinq groupes"], a:2, e:"Les 11 sanctions des fonctionnaires actifs sont classées en 4 groupes (art. 66 de la loi 84-16 du 11 janvier 1984).", s:"Procédure disciplinaire dans la PN — loi 84-16 art. 66"},
+   {q:"Parmi ces sanctions, laquelle relève du 1ᵉʳ groupe ?", o:["La révocation","Le blâme","La rétrogradation","La mise à la retraite d'office"], a:1, e:"Le 1ᵉʳ groupe comprend l'avertissement, le blâme et l'exclusion temporaire de fonctions ≤ 3 jours. La rétrogradation est au 3ᵉ groupe ; révocation et retraite d'office au 4ᵉ groupe.", s:"Procédure disciplinaire dans la PN"},
+   {q:"La révocation et la mise à la retraite d'office appartiennent au :", o:["1ᵉʳ groupe","2ᵉ groupe","3ᵉ groupe","4ᵉ groupe"], a:3, e:"Le 4ᵉ groupe (le plus sévère) comprend la mise à la retraite d'office et la révocation.", s:"Procédure disciplinaire dans la PN"},
+   {q:"Quelles sanctions peuvent être prononcées SANS consultation du conseil de discipline ?", o:["Toutes les sanctions","L'avertissement et le blâme","Uniquement la révocation","Aucune"], a:1, e:"L'avertissement et le blâme (1ᵉʳ groupe) sont prononcés sans conseil de discipline ; les sanctions des 2ᵉ, 3ᵉ et 4ᵉ groupes nécessitent sa consultation.", s:"Procédure disciplinaire dans la PN"}
+  ]
+ },
+ {
+  id:"force", ic:"🛡️", name:"Emploi de la force & armes",
+  desc:"Nécessité/proportionnalité, légitime défense, L.435-1, AFI, TSUA, formations TSI.",
+  fiches:[
+   {t:"Principes de l'emploi de la force", pts:[
+     "L'emploi de la force recouvre la <b>force physique</b> (défense/interpellation) et la <b>force armée</b> (AFI, armes à feu).",
+     "<b>Article R.434-18 CSI</b> : la force est employée <b>seulement lorsque c'est nécessaire</b> et <b>de façon proportionnée</b> au but à atteindre ou à la gravité de la menace.<span class='tag law'>R.434-18</span>",
+     "Force physique → <b>NÉCESSITÉ + PROPORTIONNALITÉ</b>.",
+     "Force armée → <b>ABSOLUE NÉCESSITÉ + (stricte) PROPORTIONNALITÉ</b>.",
+     "Maîtres-mots permanents : <b>sang-froid et discernement</b>."
+   ]},
+   {t:"Légitime défense & cadres pénaux", pts:[
+     "<b>Légitime défense des personnes – art. 122-5 CP</b> : l'atteinte doit être <b>ACTUELLE / RÉELLE / INJUSTE</b> ; l'acte de défense <b>NÉCESSAIRE / PROPORTIONNEL / CONCOMITANT</b>.<span class='tag law'>122-5 CP</span>",
+     "<b>Légitime défense des biens – art. 122-5 CP</b> : acte de défense nécessaire et proportionné, <b>autre qu'un homicide volontaire</b>, contre un crime/délit visant un bien.",
+     "<b>État de nécessité – art. 122-7 CP</b> : danger actuel ou imminent ; acte de sauvegarde nécessaire et proportionné.",
+     "<b>Art. 122-4 CP</b> : irresponsabilité pour l'acte prescrit/autorisé par la loi ou commandé par l'autorité légitime, <b>sauf si l'acte est manifestement illégal</b>."
+   ]},
+   {t:"Usage des armes par les forces de l'ordre — L.435-1 CSI", pts:[
+     "<b>3 conditions cumulatives</b> : dans l'exercice des fonctions · revêtus de l'uniforme ou d'insignes extérieurs apparents · usage en <b>cas d'absolue nécessité</b> et <b>strictement proportionné</b>.<span class='tag law'>L.435-1</span>",
+     "<b>1°</b> Atteintes à la vie/intégrité contre eux ou autrui, ou personnes armées menaçant leur vie/intégrité ou celle d'autrui.",
+     "<b>2°</b> Après <b>deux sommations</b>, défense des lieux occupés ou des personnes confiées.",
+     "<b>3°</b> Après deux sommations, immobiliser des personnes cherchant à échapper et susceptibles de perpétrer dans leur fuite des atteintes à la vie/intégrité.",
+     "<b>4°</b> Immobiliser des véhicules dont les conducteurs n'obtempèrent pas et dont les occupants sont susceptibles de perpétrer dans leur fuite des atteintes à la vie/intégrité.",
+     "<b>5°</b> Empêcher la <b>réitération</b> dans un temps rapproché d'un ou plusieurs meurtres/tentatives venant d'être commis (périple meurtrier)."
+   ]},
+   {t:"Maîtrise d'une personne agitée (Note DGPN 4 nov. 2015)", pts:[
+     "Toute <b>compression sur le thorax ou l'abdomen</b> doit être la <b>plus courte possible</b>.",
+     "Les <b>liens de contention</b> ne peuvent <b>en aucun cas</b> être apposés sur la <b>tête ou le cou</b>.",
+     "Obligation de <b>protection</b> de la personne interpellée : <b>examen médical le plus rapidement possible</b>.",
+     "Obligation de <b>rendre compte sans délai</b> de l'emploi de la force."
+   ]},
+   {t:"Armes de force intermédiaire (AFI) & recyclages", pts:[
+     "Bâton de défense (D2) : habilitation obligatoire, recyclage <b>triennal</b>.",
+     "Pistolet à impulsions électriques AXON TASER 7 (B6) : recyclage <b>triennal</b>.",
+     "LBD / lanceur 40 mm – MDU (A2-4) : recyclage <b>triennal</b>. Grenade de désencerclement GENL (A2-6) : triennal.",
+     "PA SIG Sauer 2022 cal. 9 mm (B1) : actifs, PA, cadets, réservistes — tirs réglementaires.",
+     "PM HK UMP (A2) et fusil d'assaut HK G36 (A2) : habilitation obligatoire, recyclage <b>annuel</b>.",
+     "Base : les MFI permettent une réponse <b>proportionnée</b> ; leur usage reste soumis à la légitime défense / aux textes en vigueur.<span class='tag law'>RGEPN 114-5</span>"
+   ]},
+   {t:"TSUA — Traitement du suivi de l'usage des armes", pts:[
+     "Application web qui permet à l'agent de <b>s'acquitter de son obligation de rendre compte</b> de l'usage d'une ou plusieurs armes (finalité opérationnelle ET administrative).",
+     "Tout policier a l'<b>obligation</b> de rendre compte ; un collègue habilité peut renseigner « pour le compte de » si l'agent ne peut le faire immédiatement.",
+     "On <b>ne déclare pas</b> dans TSUA les tirs d'<b>entraînement ou de formation</b>.",
+     "La déclaration est <b>modifiable par son auteur tant qu'il ne l'a pas validée</b> ; elle <b>n'est pas modifiable par la hiérarchie</b> (qui appose le visa).",
+     "Accès via le portail CHEOPS NG (intranet du ministère de l'Intérieur)."
+   ]},
+   {t:"Formations obligatoires en TSI (arrêté 27/07/2015 mod. 10/07/2024)", pts:[
+     "La formation continue aux <b>techniques et à la sécurité en intervention</b> (emploi des armes + pratiques professionnelles) revêt un caractère <b>obligatoire</b>.",
+     "Volume horaire <b>minimal annuel : 12 heures</b>, fractionné en plusieurs séances réparties dans l'année.",
+     "Séance type : <b>4 heures</b> (simulation + rappel des cadres légaux + tir à balles réelles). Aménagement possible : tir minimum annuel de <b>90 cartouches</b> et ≥ 9 h de pratiques professionnelles.",
+     "Compétence <b>exclusive</b> des <b>formateurs TSI</b>. Accidents en formation : imputables au service.",
+     "Se soustraire régulièrement et sans motif légitime à l'entraînement réglementaire expose à des <b>sanctions disciplinaires</b>.",
+     "<b>Sport opérationnel</b> : obligatoire, <b>2 h/semaine</b>, sur le temps de travail, <b>sans compensation</b> ni indemnisation."
+   ]},
+   {t:"Régime de l'arme individuelle (RGEPN)", pts:[
+     "L'agent reçoit une <b>arme individuelle</b> en dotation, portée en service et pouvant l'être hors service ; le <b>port hors service</b> est subordonné à une <b>déclaration préalable au chef de service</b>.<span class='tag law'>114-4</span>",
+     "Les <b>élèves gardiens de la paix</b> ne sont <b>pas autorisés</b> à porter l'arme hors service : dépôt obligatoire à l'armurerie à la fin de chaque vacation.",
+     "Le fonctionnaire est <b>responsable de son arme en tous temps, lieux et circonstances</b> (sauf dépôt sécurisé).",
+     "Retrait de l'arme par la hiérarchie en cas d'<b>état de dangerosité</b> ; réarmement soumis à visite d'aptitude médicale.<span class='tag law'>114-6</span>",
+     "Interdiction de porter un armement/munitions différents de la dotation.<span class='tag law'>114-7</span>"
+   ]},
+   {t:"Conditions d'emploi des AFI — LBD 40 mm", pts:[
+     "Les AFI permettent une réponse <b>graduée et proportionnée</b> face à un danger, lorsque le recours aux <b>armes à feu létales n'est pas justifié</b>.",
+     "Le <b>LBD de 40 mm</b> permet la <b>neutralisation à distance</b> d'un individu dangereux pour autrui ou pour lui-même. C'est un lanceur <b>mono-coup</b>, à canon rayé et basculant.",
+     "Intervalle de distance opérationnel (munition MDU/MDU simbleautée) : de <b>3 mètres à 35 mètres</b> ; en deçà ou au-delà, l'efficacité et la sécurité ne sont plus garanties.",
+     "Cadres d'emploi : <b>légitime défense (122-5 CP)</b>, <b>état de nécessité (122-7 CP)</b>, <b>L.435-1 CSI</b>, et maintien de l'ordre (après sommations) — toujours <b>nécessité + proportionnalité</b>.",
+     "Il convient d'<b>éviter le tir de LBD</b> lorsque la personne présente un <b>état de vulnérabilité manifeste</b> (blessure visible, grossesse apparente, handicap évident, âge).",
+     "Chaque usage est tracé via le <b>TSUA</b> (nombre de tirs, distance estimée, diligences effectuées)."
+   ]},
+   {t:"AFI — grenades & moyens lacrymogènes", pts:[
+     "La <b>GM2L</b> (grenade assourdissante et lacrymogène, calibre 56 mm) produit un <b>double effet</b> lacrymogène + assourdissant et <b>ne projette aucun éclat vulnérant</b> ; elle remplace la GLI-F4.",
+     "Avec un lanceur de grenade, le <b>tir tendu est strictement interdit</b> : le tir s'effectue <b>en tir courbe</b> (la trajectoire permet la dispersion du produit en l'air).",
+     "Après emploi de moyens lacrymogènes, s'assurer dès que possible de l'<b>état de la personne</b> exposée.",
+     "Les <b>générateurs d'aérosols incapacitants ou lacrymogènes (GAIL)</b> et la grenade lacrymogène à main sont utilisables en MO dès la première phase (après deux sommations, sur ordre).",
+     "Tout usage d'AFI fait l'objet d'un <b>compte rendu</b> (cadre légal, nombre de tirs, distance) et d'une déclaration <b>TSUA</b>."
+   ]}
+  ],
+  quiz:[
+   {q:"Selon l'article R.434-18 du CSI, l'emploi de la force est possible :", o:["À tout moment pour faire respecter l'autorité","Seulement lorsque c'est nécessaire et de façon proportionnée","Uniquement avec l'accord d'un OPJ","Sans condition en cas de flagrant délit"], a:1, e:"R.434-18 : la force est employée seulement lorsque c'est nécessaire et de façon proportionnée au but à atteindre ou à la gravité de la menace.", s:"CSI R.434-18 ; fiche Emploi de la force"},
+   {q:"L'usage de la force ARMÉE obéit aux critères de :", o:["Nécessité et proportionnalité","Absolue nécessité et proportionnalité","Opportunité et discrétion","Simple nécessité"], a:1, e:"La force armée exige l'ABSOLUE nécessité et la (stricte) proportionnalité, là où la force physique exige nécessité + proportionnalité.", s:"Emploi de la force – principaux textes"},
+   {q:"Dans la légitime défense des personnes (art. 122-5 CP), l'atteinte doit être :", o:["Future et probable","Actuelle, réelle et injuste","Grave et répétée","Volontaire et préméditée"], a:1, e:"L'atteinte doit être actuelle, réelle et injuste ; l'acte de défense doit être nécessaire, proportionnel et concomitant.", s:"Art. 122-5 du Code pénal"},
+   {q:"L'usage des armes par les forces de l'ordre est régi par quel article du CSI ?", o:["L.211-9","L.435-1","R.434-18","R.211-13"], a:1, e:"L'article L.435-1 du CSI encadre l'usage des armes par les agents de police et militaires de gendarmerie.", s:"CSI L.435-1"},
+   {q:"Combien de situations (cas) prévoit l'article L.435-1 du CSI pour l'usage des armes ?", o:["3","4","5","7"], a:2, e:"L.435-1 prévoit 5 situations, encadrées par 3 conditions (exercice des fonctions, uniforme/insignes, absolue nécessité et stricte proportionnalité).", s:"CSI L.435-1"},
+   {q:"Selon la note DGPN du 4 novembre 2015, les liens de contention :", o:["Peuvent être posés sur le cou si nécessaire","Ne peuvent en aucun cas être apposés sur la tête ou le cou","Sont interdits sur les membres","Doivent être posés en priorité sur la tête"], a:1, e:"La note interdit en toutes circonstances l'apposition des liens de contention sur la tête ou le cou, et impose une compression thoracique/abdominale la plus courte possible.", s:"Note DGPN/CAB du 4 novembre 2015"},
+   {q:"Quel est le volume horaire annuel minimal de formation continue en TSI ?", o:["6 heures","12 heures","24 heures","Aucun minimum"], a:1, e:"L'arrêté du 27/07/2015 modifié fixe un minimum annuel de 12 heures, fractionné en plusieurs séances.", s:"Arrêté 27/07/2015 mod. 10/07/2024, art. 4"},
+   {q:"Le sport opérationnel des personnels actifs est :", o:["Facultatif et hors temps de travail","Obligatoire, 2 h/semaine, sur le temps de travail, sans compensation","Obligatoire et indemnisé","Réservé aux unités d'intervention"], a:1, e:"Il est obligatoire, d'une durée hebdomadaire de 2 heures, effectué sur le temps de travail, et n'ouvre droit à aucune compensation ou indemnisation.", s:"Arrêté 27/07/2015, art. 14-16"},
+   {q:"Dans le TSUA, faut-il déclarer les tirs d'entraînement et de formation ?", o:["Oui, systématiquement","Non, ils ne doivent pas y être déclarés","Seulement s'il y a un incident","Uniquement les tirs collectifs"], a:1, e:"La page d'accueil du TSUA rappelle qu'on n'y entre pas les tirs d'entraînement et de formation. Le TSUA sert à rendre compte d'un usage réel.", s:"Fiche mémo TSUA"},
+   {q:"Une déclaration TSUA validée peut-elle être modifiée par la hiérarchie ?", o:["Oui, à tout moment","Non, elle n'est pas modifiable par la hiérarchie","Oui, mais seulement le chef de service","Oui, dans les 24 h"], a:1, e:"La déclaration est modifiable par son auteur tant qu'il ne l'a pas validée ; elle n'est pas modifiable par la hiérarchie, qui se borne à apposer le visa.", s:"Fiche mémo TSUA"},
+   {q:"Le recyclage de l'habilitation au pistolet à impulsions électriques (TASER 7) est :", o:["Annuel","Biennal","Triennal","Non requis"], a:2, e:"Le PIE AXON TASER 7 (catégorie B6) a une habilitation obligatoire avec recyclage triennal.", s:"Tableaux synthétiques armes et AFI"},
+   {q:"Le recyclage de l'habilitation au PM HK UMP et au fusil d'assaut HK G36 est :", o:["Annuel","Triennal","Quinquennal","Facultatif"], a:0, e:"Pour le PM HK UMP et le fusil G36 (catégorie A2), le recyclage est annuel.", s:"Tableaux synthétiques armes et AFI"},
+   {q:"Un élève gardien de la paix peut-il porter son arme individuelle hors service ?", o:["Oui, librement","Non : dépôt obligatoire à l'armurerie en fin de vacation","Oui, après déclaration","Oui, le week-end uniquement"], a:1, e:"Les élèves GPX ne sont pas autorisés à porter l'arme hors service ; ils la déposent à l'armurerie à la fin de chaque vacation (RGEPN art. 114-4).", s:"RGEPN art. 114-4"},
+   {q:"Le port de l'arme individuelle hors service par un fonctionnaire actif est subordonné à :", o:["Rien de particulier","Une déclaration préalable au chef de service","Une autorisation du préfet","Un certificat médical annuel"], a:1, e:"Le port hors service est subordonné à une déclaration préalable du fonctionnaire à son chef de service.", s:"RGEPN art. 114-4"},
+   {q:"L'intervalle de distance opérationnel du LBD de 40 mm (munition MDU) est de :", o:["1 à 10 mètres","3 à 35 mètres","10 à 50 mètres","0 à 5 mètres"], a:1, e:"Le LBD 40 mm dispose d'un intervalle de distance opérationnel de 3 à 35 mètres ; en deçà ou au-delà, efficacité et sécurité ne sont plus garanties.", s:"Instruction commune usage et emploi des AFI"},
+   {q:"L'emploi du LBD de 40 mm doit être évité lorsque la personne :", o:["Court rapidement","Présente un état de vulnérabilité manifeste (grossesse, handicap, blessure…)","Est accompagnée","Refuse de parler"], a:1, e:"L'instruction recommande d'éviter le tir de LBD quand la personne présente un état de vulnérabilité manifeste : blessure visible, grossesse apparente, handicap évident, âge.", s:"Instruction commune usage et emploi des AFI"},
+   {q:"La grenade GM2L se caractérise par :", o:["Un éclat métallique vulnérant","Un double effet lacrymogène et assourdissant, sans éclat vulnérant","Un effet uniquement sonore","Une charge explosive importante"], a:1, e:"La GM2L produit un double effet lacrymogène et assourdissant et ne projette aucun éclat vulnérant ; elle remplace la GLI-F4.", s:"Instruction commune usage et emploi des AFI ; SNMO 2021"},
+   {q:"Avec un lanceur de grenade, le tir tendu est :", o:["Recommandé pour la précision","Strictement interdit (tir courbe imposé)","Autorisé à moins de 10 m","Réservé au maintien de l'ordre"], a:1, e:"Le tir tendu est strictement interdit avec le lanceur de grenade : le tir courbe permet la dispersion du produit lacrymogène en l'air et évite de blesser.", s:"Instruction commune usage et emploi des AFI"}
+  ]
+ },
+ {
+  id:"interv", ic:"🚓", name:"Pratiques en intervention",
+  desc:"MRO, palpation, menottage, véhicules en fuite, tueries de masse, SNMO.",
+  fiches:[
+   {t:"Méthode de raisonnement opérationnel (MRO)", pts:[
+     "Toute intervention repose sur la MRO en 3 temps : <b>Analyse de la situation</b> (que se passe-t-il ?) → <b>Cadre juridique</b> (quel est le cadre légal ?) → <b>Tactique d'action</b> (comment intervenir ?).",
+     "Le MRO structure aussi la prise en charge des refus d'obtempérer et des interventions à risque."
+   ]},
+   {t:"La palpation de sécurité", pts:[
+     "C'est une <b>mesure administrative</b> / de <b>sûreté</b>, dont la finalité est la protection des policiers, des tiers et de la personne contrôlée.<span class='tag law'>R.434-16 CSI</span>",
+     "Elle <b>ne revêt pas un caractère systématique</b> : réservée aux cas où elle apparaît nécessaire à la sécurité.",
+     "Hormis situations exceptionnelles (dangerosité, urgence), elle est exécutée par une personne du <b>même sexe</b> ; toute dérogation est justifiée par écrit.",
+     "Pratiquée <b>à l'abri du regard du public</b> chaque fois que possible, avec discernement, sans agressivité.",
+     "Elle est <b>peu intrusive</b> : pas de fouille ni de retrait de vêtement (≠ fouille de sécurité). Renouvelée chaque fois que nécessaire."
+   ]},
+   {t:"Refus d'obtempérer & véhicules en fuite", pts:[
+     "Le <b>refus d'obtempérer</b> (art. <b>L.233-1 du code de la route</b>) est puni de <b>2 ans d'emprisonnement et 15 000 € d'amende</b>.<span class='tag law'>L.233-1 CR</span>",
+     "La prise en charge relève d'une <b>décision concertée</b> entre le chef de bord et le conducteur ; aviser immédiatement le <b>CIC</b> (qui peut faire cesser la poursuite à tout moment).",
+     "Règles : ceinture, avertisseurs sonores/lumineux + géolocalisation, déclenchement obligatoire de la <b>caméra-piéton</b>, privilégier les <b>DIVA</b> si disponibles.",
+     "Pendant la poursuite : conserver une distance de sécurité, ne pas chercher à dépasser le véhicule poursuivi.",
+     "<b>Ne jamais se positionner devant ou derrière le véhicule</b> tant que le conducteur est au volant (zones de danger).",
+     "Usage de l'arme : exclusivement dans le cadre de la <b>légitime défense (122-5 CP)</b> et de l'<b>article L.435-1 CSI</b> (absolue nécessité + proportionnalité)."
+   ]},
+   {t:"Tuerie de masse — primo-intervenants de 1er niveau", pts:[
+     "Objectifs à l'arrivée : <b>prise de renseignements</b> · <b>opportunité de neutraliser</b> le(s) auteur(s) · <b>limitation de la propagation</b> par <b>fixation ou confinement</b> · <b>exfiltration des victimes</b>.",
+     "<b>Fixer</b> : en champ ouvert, entraver la manœuvre des auteurs. <b>Confiner</b> : maintenir les auteurs en un lieu clos.",
+     "Progression de <b>poste en poste</b> jusqu'à la <b>distance opérationnelle d'intervention (DOI)</b> ; privilégier le <b>cheminement</b> (hors la vue).",
+     "Le <b>bond</b> (mouvement à découvert) s'effectue toujours sous protection d'un soutien-feu : « <b>Pas un pas sans soutien</b> ».",
+     "Le porteur de l'<b>arme d'épaule</b> couvre l'axe principal de progression (soutien-feu principal).",
+     "Le <b>bouclier balistique souple (BBS)</b> (~20 kg équipé) n'offre <b>pas une protection absolue</b>."
+   ]},
+   {t:"Maintien de l'ordre & SNMO — acteurs et sommations", pts:[
+     "Un <b>attroupement</b> = tout rassemblement sur la voie publique ou dans un lieu public susceptible de troubler l'ordre public.<span class='tag law'>431-3 CP</span>",
+     "L'<b>AHEF</b> (autorité habilitée à l'emploi de la force) : seule à constater le délit d'attroupement, <b>doit être sur place</b>, porteur de l'<b>écharpe tricolore</b>, réalise les sommations ; elle <b>ne peut cumuler</b> son rôle avec celui de <b>commandant de la force publique (CFP)</b>.",
+     "Le <b>CFP</b> est responsable de la <b>stricte exécution</b> de la réquisition de l'AHEF et décide des moyens humains/matériels.",
+     "Après <b>deux sommations</b> demeurées sans effet, l'attroupement devient un <b>délit (L.211-9 CSI)</b> et la force peut être employée sur ordre.",
+     "Le <b>PIE est interdit en maintien de l'ordre</b>. Le <b>LBD</b> est interdit après les sommations, sauf dans le <b>cadre de réaction</b> (voies de fait/violences) et toujours avec <b>binôme superviseur/tireur</b>."
+   ]},
+   {t:"SNMO de décembre 2021 — principales évolutions", pts:[
+     "Information renforcée des <b>organisateurs et manifestants</b>, en amont et pendant la manifestation (y compris via les réseaux sociaux).",
+     "Reconnaissance de la <b>place particulière des journalistes</b> au sein des manifestations.",
+     "Contribution accrue des <b>unités hors force mobile</b> (avec obligation d'équipement et de formation) et exigence de <b>réactivité/mobilité</b>.",
+     "Plus grande <b>transparence</b> : port de l'uniforme avec <b>mention de l'unité bien visible</b>.",
+     "<b>Modernisation des sommations</b> et <b>cadrage des techniques d'encerclement</b> ; intégration plus formelle d'un <b>dispositif judiciaire</b> (procureur de la République).",
+     "Évolutions des armes de force intermédiaire : <b>abandon de la grenade GLI-F4</b> remplacée par la <b>GM2L</b> (sans explosif) ; nouveau modèle de <b>GMD</b> moins vulnérant ; <b>référent d'appui aux victimes</b> auprès de chaque préfet."
+   ]},
+   {t:"SNMO 2021 — nouvelles sommations & doctrine LBD", pts:[
+     "Avis préalable : « <b>Attention ! Attention ! Vous participez à un attroupement. Obéissance à la loi. Vous devez vous disperser et quitter les lieux</b> » (remplace « Obéissance à la loi. Dispersez-vous »).",
+     "1ʳᵉ sommation : « <b>Première sommation : nous allons faire usage de la force. Quittez immédiatement les lieux</b> ».",
+     "Dernière sommation : « <b>Dernière sommation : nous allons faire usage de la force. Quittez immédiatement les lieux</b> ».",
+     "<b>Doctrine LBD en MO</b> : hors le cas de la <b>légitime défense</b>, mise en place d'un <b>superviseur auprès des tireurs LBD</b> lors des opérations de maintien de l'ordre.",
+     "Objectif des nouvelles sommations : exprimer <b>plus explicitement</b> ce qui est attendu des manifestants."
+   ]},
+   {t:"Schéma national d'intervention — les 3 niveaux", pts:[
+     "L'intervention de police = toute action de maintien de la paix et de la sécurité publiques (cadre judiciaire, administratif ou de renseignement), en réaction immédiate ou préparée.",
+     "<b>1ᵉʳ niveau — intervention élémentaire</b> : action des policiers de proximité (l'« <b>équipage</b> »), situations courantes, technicité élémentaire, adaptation et discernement.",
+     "<b>2ᵉ niveau — intervention intermédiaire</b> : situations complexes et/ou évolutives ne pouvant être gérées par les seuls intervenants du 1ᵉʳ niveau (formation/technicité/équipement supérieurs).",
+     "<b>3ᵉ niveau — intervention spécialisée</b> : situations fortement dégradées et/ou très complexes (unités spécialisées : RAID, BRI…).",
+     "Principe clé : <b>complémentarité et articulation</b> des trois niveaux ; engagement des moyens « au plus juste » ; débriefing opérationnel et <b>RETEX</b>."
+   ]},
+   {t:"Le menottage (note DGPN — art. 803 CPP)", pts:[
+     "Fondement : <b>article 803 du code de procédure pénale</b>. « Nul ne peut être soumis au port des menottes ou des entraves que s'il est considéré soit comme <b>dangereux pour autrui ou pour lui-même</b>, soit comme <b>susceptible de tenter de prendre la fuite</b>. »<span class='tag law'>803 CPP</span>",
+     "Le policier dispose d'un <b>pouvoir d'appréciation</b> de la dangerosité et du risque de fuite ; la décision relève de sa <b>responsabilité personnelle</b>, à exercer avec <b>discernement</b> et <b>proportionnalité</b>.",
+     "Le <b>menottage trop serré</b> est prohibé (instruction ministérielle du 11 mars 2003 relative à la dignité des personnes en garde à vue).",
+     "Toute personne menottée/entravée doit, autant que possible, être protégée d'une <b>photographie ou d'un enregistrement audiovisuel</b>.",
+     "Une infraction à ces règles peut engager la <b>responsabilité pénale</b> de son auteur et l'exposer à des sanctions disciplinaires."
+   ]}
+  ],
+  quiz:[
+   {q:"Les trois temps de la méthode de raisonnement opérationnel (MRO) sont :", o:["Observer / Réagir / Rendre compte","Analyse de la situation / Cadre juridique / Tactique d'action","Alerter / Protéger / Secourir","Repérer / Encercler / Interpeller"], a:1, e:"Le MRO : analyse de la situation (que se passe-t-il ?), cadre juridique (quel cadre légal ?), tactique d'action (comment intervenir ?).", s:"Fiche mémo refus d'obtempérer / véhicules en fuite"},
+   {q:"La palpation de sécurité est juridiquement :", o:["Une fouille judiciaire","Une mesure administrative / de sûreté","Une perquisition","Un acte d'enquête sous contrôle du procureur"], a:1, e:"La palpation est une mesure administrative / de sûreté (R.434-16 CSI), non systématique, destinée à écarter un objet dangereux.", s:"Fiche technique palpation ; CSI R.434-16"},
+   {q:"En principe, la palpation de sécurité est exécutée :", o:["Par n'importe quel agent","Par une personne du même sexe (sauf exception justifiée)","Toujours par un gradé","En présence du public pour la transparence"], a:1, e:"Hormis les situations exceptionnelles (dangerosité, urgence), elle est pratiquée par une personne du même sexe ; toute dérogation est justifiée par écrit.", s:"Fiche technique palpation"},
+   {q:"La palpation de sécurité implique-t-elle le retrait de vêtements ?", o:["Oui, c'est une fouille","Non, elle n'implique ni fouille ni retrait de vêtement","Oui, mais seulement les manteaux","Seulement en garde à vue"], a:1, e:"La palpation est peu intrusive : elle n'implique ni la fouille ni le retrait de vêtement, à la différence de la fouille de sécurité.", s:"Fiche technique palpation"},
+   {q:"Le délit de refus d'obtempérer (L.233-1 du code de la route) est puni de :", o:["1 an et 7 500 €","2 ans et 15 000 €","3 ans et 45 000 €","6 mois et 3 750 €"], a:1, e:"Le refus d'obtempérer est puni de 2 ans d'emprisonnement et de 15 000 € d'amende (art. L.233-1 du code de la route).", s:"Fiche mémo véhicules en fuite ; L.233-1 CR"},
+   {q:"Lors d'une prise en charge d'un véhicule en fuite, il faut :", o:["Se placer devant le véhicule pour le bloquer","Ne jamais se positionner devant ou derrière le véhicule tant que le conducteur est au volant","Dépasser le véhicule dès que possible","Couper le contact radio"], a:1, e:"Devant et derrière le véhicule sont des zones de danger tant que le conducteur est au volant : il ne faut jamais s'y positionner.", s:"Fiche mémo véhicules en fuite"},
+   {q:"Quel moyen faut-il privilégier pour intercepter un véhicule en fuite, s'il est disponible ?", o:["Le tir au LBD","Les DIVA (dispositifs d'interception)","Le barrage humain","La grenade lacrymogène"], a:1, e:"La fiche préconise de privilégier l'utilisation des DIVA lorsqu'ils sont immédiatement disponibles et que la situation le permet.", s:"Fiche mémo véhicules en fuite"},
+   {q:"Pour des primo-intervenants de 1er niveau sur une tuerie de masse, parmi les objectifs figure :", o:["Attendre systématiquement les unités spécialisées","La fixation ou le confinement de l'auteur","Évacuer d'abord tous les policiers","Négocier avec l'auteur"], a:1, e:"Les objectifs : renseignement, opportunité de neutraliser, limitation de la propagation par fixation ou confinement, exfiltration des victimes.", s:"Fiche TDM – intervenants de 1er niveau"},
+   {q:"Le principe « Pas un pas sans soutien » concerne :", o:["La palpation","Le bond (mouvement à découvert) effectué sous protection d'un soutien-feu","Le menottage","La rédaction du compte rendu"], a:1, e:"Le bond, mouvement à découvert pour gagner un nouveau poste, s'effectue toujours sous la protection d'un soutien-feu.", s:"Fiche TDM – gestion tactique"},
+   {q:"En maintien de l'ordre, l'autorité habilitée à l'emploi de la force (AHEF) :", o:["Peut cumuler son rôle avec celui de commandant de la force publique","Doit être sur place, porter l'écharpe tricolore et réaliser les sommations","Décide seule des moyens matériels engagés","Peut déléguer les sommations à n'importe quel agent"], a:1, e:"L'AHEF constate le délit d'attroupement, doit être sur place, porte l'écharpe tricolore et réalise les sommations ; elle ne cumule pas avec le rôle de CFP.", s:"Synthèse éléments juridiques du MO"},
+   {q:"Un attroupement est défini par quel article ?", o:["L.211-9 CSI","Art. 431-3 du Code pénal","R.434-18 CSI","Art. 122-5 CP"], a:1, e:"L'article 431-3 du Code pénal définit l'attroupement comme tout rassemblement sur la voie publique ou dans un lieu public susceptible de troubler l'ordre public.", s:"Art. 431-3 CP ; Synthèse MO"},
+   {q:"En maintien de l'ordre, le pistolet à impulsions électriques (PIE) est :", o:["Autorisé après deux sommations","Interdit","Autorisé sur initiative du CFP","Réservé aux unités spécialisées"], a:1, e:"Le tableau d'usage des AFI en MO indique que le PIE est interdit en maintien de l'ordre. Le LBD n'est admis qu'en cadre de réaction, avec binôme superviseur/tireur.", s:"Tableau usage des AFI en MO ; Synthèse MO"},
+   {q:"Selon le SNMO de décembre 2021, l'emploi du LBD en maintien de l'ordre s'accompagne, hors légitime défense :", o:["D'une autorisation écrite du préfet","De la mise en place d'un superviseur auprès du tireur","De l'interdiction totale du LBD","D'un tir de sommation préalable"], a:1, e:"Le SNMO 2021 prévoit, hors légitime défense, la mise en place d'un superviseur auprès des tireurs LBD lors des opérations de maintien de l'ordre.", s:"SNMO décembre 2021"},
+   {q:"Parmi les évolutions du SNMO 2021 figure le remplacement de la grenade GLI-F4 par :", o:["La grenade GM2L (sans explosif)","Le LBD 40","La grenade Condor","Le PIE"], a:0, e:"Le SNMO 2021 décide l'abandon de la grenade GLI-F4 et son remplacement par la grenade GM2L, qui ne contient pas d'explosif ; le modèle de GMD est également remplacé par un modèle moins vulnérant.", s:"SNMO décembre 2021"},
+   {q:"Dans les nouvelles sommations du SNMO 2021, l'avertissement préalable commence par :", o:["« Obéissance à la loi. Dispersez-vous »","« Attention ! Attention ! Vous participez à un attroupement… »","« Halte ou je fais feu »","« Dernière sommation »"], a:1, e:"La sommation modernisée débute par « Attention ! Attention ! Vous participez à un attroupement. Obéissance à la loi. Vous devez vous disperser et quitter les lieux », en remplacement de l'ancienne formule « Obéissance à la loi. Dispersez-vous ».", s:"SNMO décembre 2021"},
+   {q:"Le schéma national d'intervention distingue combien de niveaux d'intervention ?", o:["Deux","Trois","Quatre","Cinq"], a:1, e:"Trois niveaux : 1ᵉʳ élémentaire (proximité/équipage), 2ᵉ intermédiaire (situations complexes/évolutives), 3ᵉ spécialisé (RAID, BRI…).", s:"Instruction générale relative au concept de l'intervention (DPN-1)"},
+   {q:"L'intervention de premier niveau (élémentaire) est assurée par :", o:["Les unités spécialisées (RAID/BRI)","Les policiers de proximité formant un « équipage »","Les CRS uniquement","Le commandement stratégique"], a:1, e:"Le 1ᵉʳ niveau correspond à l'action des policiers de proximité (l'« équipage »), pour des situations courantes nécessitant une technicité élémentaire.", s:"Instruction générale relative au concept de l'intervention"},
+   {q:"Le menottage est encadré par quel article du code de procédure pénale ?", o:["Article 73","Article 803","Article 122-5","Article 78-2"], a:1, e:"L'article 803 du CPP : nul ne peut être menotté ou entravé que s'il est considéré comme dangereux pour autrui/lui-même ou susceptible de prendre la fuite.", s:"Note DGPN du 13/09/2004 — art. 803 CPP"},
+   {q:"Le port des menottes peut être imposé lorsque la personne est :", o:["Systématiquement, pour toute interpellation","Dangereuse pour autrui/elle-même OU susceptible de prendre la fuite","Uniquement en cas de crime","Seulement sur ordre du procureur"], a:1, e:"L'article 803 CPP limite le menottage aux personnes considérées comme dangereuses (pour autrui ou elles-mêmes) ou susceptibles de tenter de prendre la fuite ; le policier l'apprécie avec discernement et proportionnalité.", s:"Note DGPN — art. 803 CPP"}
+  ]
+ },
+ {
+  id:"temps", ic:"🕒", name:"Temps de travail (APORTT)",
+  desc:"Durées, repos, travail de nuit, régimes, congés, dérogations.",
+  fiches:[
+   {t:"L'APORTT — cadre général", pts:[
+     "<b>APORTT</b> = Arrêté du <b>5 septembre 2019</b> portant organisation du temps de travail dans la police nationale, applicable depuis le <b>1er janvier 2020</b>.",
+     "S'applique à <b>tous les services</b> (DGPN, DGSI, PP) et à <b>tous les corps</b> (actifs et administratifs), à l'<b>exception partielle de la DCCRS</b>.",
+     "Objectifs : conformité à la réglementation européenne (repos), recommandations de la Cour des comptes, refonte des IGOTS de 2002, réduction du stock d'heures supplémentaires.",
+     "Outil de gestion du temps : <b>GesTT</b> (succède à GEOPOL). Suivi du temps via un <b>entretien annuel</b> au moins.",
+     "Sources : directive 2003/88/CE, décret 2000-815, décret 2002-1279 modifié par le décret 2017-109."
+   ]},
+   {t:"Durées de travail", pts:[
+     "Durée <b>annuelle</b> : <b>1 607 heures</b>, quel que soit le régime (réduite dans certains départements : Alsace-Moselle, DOM…).",
+     "Durée <b>hebdomadaire</b> maximale : <b>48 h en moyenne</b>, services supplémentaires compris, <b>sur le semestre</b> révolu.",
+     "Durée moyenne journalière (DMJ) : en régime hebdomadaire = 1/5 de la durée légale hebdomadaire ; en régime cyclique = durée de la vacation.",
+     "<b>Pause</b> : <b>20 minutes</b> (doublée pour les vacations de 12 h 08 et 11 h 08)."
+   ]},
+   {t:"Repos", pts:[
+     "Repos <b>journalier</b> : <b>11 heures</b> après une période travaillée.",
+     "Repos <b>hebdomadaire</b> : <b>35 heures</b> (11 h de repos journalier + 24 h).",
+     "Ces minima découlent de la directive 2003/88 et du décret dérogatoire PN modifié en 2017."
+   ]},
+   {t:"Travail de nuit", pts:[
+     "Période <b>nocturne</b> : intervalle <b>21 h – 6 h</b>.",
+     "Est <b>travailleur de nuit</b> l'agent qui accomplit, hors HS : soit ≥ <b>3 h</b> en période nocturne <b>2 fois/semaine</b>, soit ≥ <b>270 h/an</b>.",
+     "Durée du travail de nuit : ≤ <b>8 h en moyenne</b> par 24 h, sur une période de <b>3 mois civils</b>.",
+     "<b>RPS</b> (repos de pénibilité spécifique) en cycle : <b>0,1</b> en semaine (21 h–6 h), <b>0,4</b> le dimanche."
+   ]},
+   {t:"Régimes & heures supplémentaires", pts:[
+     "Deux régimes : <b>hebdomadaire</b> (calqué sur la semaine civile) et <b>cyclique</b> (équipes successives jour/nuit, dimanches et fériés). En dehors de l'APORTT, aucun autre régime n'est admis.",
+     "Heures supplémentaires : <b>seuil de 160 h</b> au-delà duquel s'applique une gestion spécifique (compte actif / compte historique).",
+     "La prise de service décalée ne doit pas être une modalité habituelle."
+   ]},
+   {t:"Exceptions & dérogations aux repos", pts:[
+     "<b>Exceptions</b> (suspension des repos pour une période indéterminée) : événements d'une particulière gravité (catastrophes, attentats, violences urbaines…). Les repos manqués <b>restent dus</b>.",
+     "<b>Dérogations</b> (suspension sur période déterminée) : restitution obligatoire des repos + période de référence définie.",
+     "Restitution des repos manqués (missions judiciaires / sécurité-paix publique) : repos <b>journalier</b> dans un délai de référence de <b>12 jours</b> ; repos <b>hebdomadaire</b> de <b>21 jours</b>.",
+     "Un repos journalier manqué génère un <b>RPS de 0,15</b>."
+   ]}
+  ],
+  quiz:[
+   {q:"L'APORTT est applicable dans la police nationale depuis :", o:["Le 1er janvier 2017","Le 1er janvier 2020","Le 5 septembre 2019","Le 1er janvier 2022"], a:1, e:"L'arrêté du 5 septembre 2019 (APORTT) est applicable depuis le 1er janvier 2020.", s:"APORTT – Fiche 1 Présentation"},
+   {q:"Quel service fait l'objet d'une exception partielle d'application de l'APORTT ?", o:["La DGSI","La préfecture de police","La DCCRS","La DGPN"], a:2, e:"L'APORTT s'applique à tous les services et corps, à l'exception partielle de la DCCRS (et de ses personnels).", s:"APORTT – Fiche 1"},
+   {q:"La durée annuelle de travail dans la police nationale est de :", o:["1 520 heures","1 607 heures","1 680 heures","1 600 heures"], a:1, e:"La durée annuelle est de 1 607 heures, quel que soit le régime (réduite dans certains départements).", s:"APORTT – Fiche 3 Durée du travail"},
+   {q:"La durée moyenne hebdomadaire maximale, services supplémentaires compris, est de :", o:["35 h sur la semaine","40 h sur le mois","48 h en moyenne sur le semestre","44 h sur le trimestre"], a:2, e:"La moyenne hebdomadaire ne doit pas excéder 48 heures, SS compris, calculée sur le semestre révolu.", s:"APORTT – Fiche 3"},
+   {q:"Le repos journalier minimal est de :", o:["8 heures","11 heures","12 heures","9 heures"], a:1, e:"Le repos journalier est de 11 heures après une période travaillée ; le repos hebdomadaire de 35 heures (11 + 24).", s:"APORTT – Principes (décret dérogatoire PN)"},
+   {q:"Le repos hebdomadaire minimal est de :", o:["24 heures","35 heures","48 heures","36 heures"], a:1, e:"Le repos hebdomadaire est de 35 heures (11 h de repos journalier + 24 h).", s:"APORTT – Principes"},
+   {q:"Selon l'APORTT, la période nocturne couvre l'intervalle :", o:["22 h – 5 h","21 h – 6 h","20 h – 7 h","0 h – 6 h"], a:1, e:"La période nocturne est définie comme l'intervalle compris entre 21 heures et 6 heures.", s:"APORTT – Fiche 4 Travail de nuit"},
+   {q:"Est travailleur de nuit l'agent qui accomplit, hors heures supplémentaires :", o:["Au moins 100 h de nuit par an","≥ 3 h de nuit 2 fois/semaine, OU ≥ 270 h/an","Toute heure après 20 h","Au moins une nuit par mois"], a:1, e:"Travailleur de nuit : ≥ 3 h en période nocturne au moins 2 fois/semaine, OU au minimum 270 heures sur l'année civile.", s:"APORTT – Fiche 4"},
+   {q:"La durée du travail de nuit ne doit pas dépasser, en moyenne :", o:["8 h par 24 h sur 3 mois civils","10 h par 24 h sur 6 mois","6 h par nuit","12 h par 24 h sur un mois"], a:0, e:"La durée du travail de nuit ne doit pas dépasser 8 heures en moyenne par 24 h, calculée sur une période de 3 mois civils.", s:"APORTT – Fiche 4"},
+   {q:"La durée du temps de pause prévue par l'APORTT est de :", o:["15 minutes","20 minutes (doublée pour les vacations de 12 h 08 et 11 h 08)","30 minutes","45 minutes"], a:1, e:"La pause est de 20 minutes, doublée pour les vacations de 12 h 08 et 11 h 08.", s:"APORTT – Principes"},
+   {q:"Combien de régimes de travail l'APORTT définit-il ?", o:["Un seul","Deux : hebdomadaire et cyclique","Trois","Quatre"], a:1, e:"Le temps de travail s'organise selon deux régimes : hebdomadaire et cyclique (la DCCRS utilise un régime mixte). Aucun autre régime n'est admis.", s:"APORTT – Fiche 2 / régimes"},
+   {q:"En cadre dérogatoire (missions judiciaires / sécurité-paix publique), le repos hebdomadaire manqué doit être restitué dans une période de référence de :", o:["12 jours","21 jours","30 jours","6 jours"], a:1, e:"Période de référence : 12 jours pour le repos journalier manqué, 21 jours pour le repos hebdomadaire manqué.", s:"APORTT – Dérogations / restitution des repos"}
+  ]
+ },
+ {
+  id:"annales", ic:"📂", name:"Examen & méthodologie",
+  desc:"Format officiel à jour (QCM 2027), programme, méthode.",
+  fiches:[
+   {t:"Format de l'épreuve — cadre à jour (2027)", pts:[
+     "Texte de référence : <b>arrêté du 15 décembre 2021</b>, <b>modifié par l'arrêté du 14 mars 2026</b> (JORF du 16 avril 2026) qui en <b>remplace l'annexe</b>.<span class='tag law'>arrêté 14/03/2026</span>",
+     "Nouvelle épreuve de sélection (voie du 2° de l'art. 15-1) : un <b>questionnaire à choix multiples (QCM)</b> évaluant les <b>compétences managériales</b>.",
+     "Le QCM porte sur <b>la gestion du temps de travail</b> et <b>les techniques et la sécurité en intervention (TSI)</b>.",
+     "Durée : <b>2 heures</b>. Les épreuves sont notées de <b>0 à 20</b> ; sont admis les candidats ayant le nombre de points fixé par le jury.",
+     "✅ <b>Cette application est un QCM</b> : son format colle exactement à la nouvelle épreuve."
+   ]},
+   {t:"Programme officiel (annexe — arrêté 14 mars 2026)", pts:[
+     "<b>Programme commun</b> (voies 1° et 2°) — <b>Gestion du temps de travail</b> : régimes hebdomadaire et cycliques, temps partiel ; services supplémentaires (permanence, astreinte, dépassement horaire, rappel/report de repos) ; congés et absences (congés, repos, ASA, exemptions, congés maladie, CET).",
+     "<b>Programme commun — TSI</b> : schéma national d'intervention ; schéma national du maintien de l'ordre (SNMO) ; RGEPN (armement, interpellation) ; formations obligatoires en TSI ; procédure d'emploi des armes ; contextualisation juridique de l'emploi de la force ; pratiques professionnelles en intervention.",
+     "<b>Programme complémentaire</b> (voie du 1° de l'art. 15-1) — <b>Déontologie</b> : règles d'emploi des policiers, autorité hiérarchique ; mise en œuvre de la déontologie, référent déontologie, moyens de contrôle, enquête administrative, sanctions et récompenses.",
+     "<b>Programme complémentaire — Management</b> : outils et pratique de l'encadrement (communication efficace, rôle du brigadier-chef) ; discrimination et harcèlement dans la fonction publique (éléments constitutifs, détection et traitement).",
+     "→ Les 5 thèmes de cette application couvrent l'intégralité de ce programme."
+   ]},
+   {t:"Ancien format (session 2022 — transitoire)", pts:[
+     "Avant la réforme, l'épreuve consistait en <b>mises en situation managériales</b> (déontologie, temps de travail, TSI), <b>1/3 obligatoirement TSI</b>.",
+     "Durée <b>3 heures</b>, barème <b>60 points</b> ramené sur 20, <b>6 mises en situation</b>, anonymat (stylo bille noir).",
+     "Exemples tombés en 2022 : propos homophobes en brigade, cumul d'activité non autorisé, tuerie de masse et cadre d'usage du PM HK UMP, évolutions du SNMO et doctrine LBD.",
+     "À connaître si tu prépares une session encore organisée sous le format transitoire — sinon, priorité au format QCM."
+   ]},
+   {t:"Méthode & stratégie QCM", pts:[
+     "Lis chaque question <b>en entier</b> : repère les négations (« sauf », « ne… pas ») et les pièges de chiffres (durées, distances, articles).",
+     "Procède par <b>élimination</b> des options manifestement fausses, puis tranche entre les deux restantes.",
+     "Ancre tes réponses sur les <b>repères-clés</b> : R.434 du CSI, L.435-1, art. 122-5/122-7 CP, RGEPN 114-x, APORTT (1607 h, 48 h, 11 h, 35 h), SNMO.",
+     "Gère le temps : ne reste pas bloqué, marque la question et reviens-y ; vérifie qu'aucune réponse n'est laissée vide.",
+     "Entraîne-toi par thème puis en <b>examen blanc</b> ; vise une maîtrise ≥ 80 % par thème avant le jour J."
+   ]}
+  ],
+  quiz:[
+   {q:"Quel texte fixe désormais l'organisation et le programme de l'examen de brigadier-chef ?", o:["L'arrêté du 15 janvier 2010","L'arrêté du 15 décembre 2021 modifié par l'arrêté du 14 mars 2026","La seule note de la session 2022","Le décret du 23 décembre 2004 seul"], a:1, e:"L'arrêté du 15 décembre 2021, modifié par l'arrêté du 14 mars 2026 (JORF du 16 avril 2026), fixe les règles d'organisation, la nature et le programme des épreuves ; son annexe a été remplacée.", s:"Arrêté du 14 mars 2026 (Légifrance JORFTEXT000053900882)"},
+   {q:"Depuis la réforme, l'épreuve de sélection (voie du 2° de l'art. 15-1) prend la forme :", o:["D'un oral devant un jury","D'un questionnaire à choix multiples (QCM)","D'une dissertation","D'une épreuve sportive"], a:1, e:"L'article 6 modifié prévoit un QCM évaluant les compétences managériales (gestion du temps de travail + TSI).", s:"Arrêté du 14 mars 2026, art. 6"},
+   {q:"La durée du QCM est de :", o:["1 heure","2 heures","3 heures","4 heures"], a:1, e:"La nouvelle épreuve (QCM) a une durée de 2 heures.", s:"Arrêté du 14 mars 2026, art. 6"},
+   {q:"Le programme commun du QCM porte sur :", o:["La culture générale et l'histoire","La gestion du temps de travail et les techniques et la sécurité en intervention","Le droit pénal général uniquement","Les langues étrangères"], a:1, e:"Le QCM (programme commun) porte sur la gestion du temps de travail dans la police nationale et sur les techniques et la sécurité en intervention.", s:"Arrêté du 14 mars 2026, art. 6 et annexe"},
+   {q:"Le programme complémentaire (voie du 1° de l'art. 15-1) ajoute notamment :", o:["La balistique avancée","La déontologie et les outils de l'encadrement (management)","La comptabilité publique","La conduite automobile"], a:1, e:"Le programme complémentaire couvre la déontologie (autorité hiérarchique, enquête administrative, sanctions/récompenses…) et le management (communication, rôle du brigadier-chef, discrimination/harcèlement).", s:"Arrêté du 14 mars 2026 — annexe"},
+   {q:"Les épreuves de l'examen sont notées :", o:["De 0 à 10","De 0 à 20","De 0 à 60","Par admis/non admis sans note"], a:1, e:"Chaque épreuve est notée de 0 à 20 ; sont déclarés admis les candidats ayant atteint le nombre de points fixé par le jury.", s:"Arrêté du 15 décembre 2021 modifié"},
+   {q:"Dans l'ancien format transitoire (session 2022), quelle proportion des mises en situation portait obligatoirement sur la TSI ?", o:["La moitié","Un tiers","Un quart","Aucune"], a:1, e:"Sous le format transitoire, un tiers des mises en situation managériales portait obligatoirement sur les techniques et la sécurité en intervention.", s:"Annales – session 2022"}
+  ]
+ }
+];
+
+/* ============================ ÉTAT / PROGRESSION ============================ */
+const LS="prepaBC_v1";
+let store = load();
+function load(){try{return JSON.parse(localStorage.getItem(LS))||init()}catch(e){return init()}}
+function init(){const o={fiches:{},quiz:{},exam:{best:0,runs:0}};THEMES.forEach(t=>{o.fiches[t.id]=[];o.quiz[t.id]={answered:0,correct:0,best:0,total:t.quiz.length}});return o}
+function save(){localStorage.setItem(LS,JSON.stringify(store))}
+function migrate(){THEMES.forEach(t=>{if(!store.fiches[t.id])store.fiches[t.id]=[];if(!store.quiz[t.id])store.quiz[t.id]={answered:0,correct:0,best:0,total:t.quiz.length};store.quiz[t.id].total=t.quiz.length});if(!store.exam)store.exam={best:0,runs:0};save()}
+migrate();
+
+function themeMastery(id){
+  const t=THEMES.find(x=>x.id===id);
+  const fTotal=t.fiches.length, fRead=(store.fiches[id]||[]).length;
+  const fScore=fTotal?fRead/fTotal:0;
+  const qBest=store.quiz[id].best||0; // ratio 0..1
+  // maîtrise = 40% fiches lues + 60% meilleur score QCM
+  return Math.round((fScore*0.4 + qBest*0.6)*100);
+}
+function badge(p){if(p>=80)return['Acquis','b-done'];if(p>0)return['En cours','b-prog'];return['À voir','b-todo']}
+
+/* ============================ NAV ============================ */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+function show(v){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id===v));
+  if(v==='home')renderHome();
+  if(v==='fiches'){document.getElementById('fichesList').style.display='block';document.getElementById('ficheDetail').style.display='none';renderFichesThemes();}
+  if(v==='quiz')renderQuizSetup();
+  if(v==='progress')renderProgress();
+  window.scrollTo(0,0);
+}
+
+/* ============================ HOME ============================ */
+function renderHome(){
+  const totQ=THEMES.reduce((a,t)=>a+t.quiz.length,0);
+  const ansQ=THEMES.reduce((a,t)=>a+store.quiz[t.id].answered,0);
+  const readF=THEMES.reduce((a,t)=>a+(store.fiches[t.id]||[]).length,0);
+  const totF=THEMES.reduce((a,t)=>a+t.fiches.length,0);
+  const avg=Math.round(THEMES.reduce((a,t)=>a+themeMastery(t.id),0)/THEMES.length);
+  document.getElementById('homeStats').innerHTML=`
+    <div class="stat"><div class="n">${avg}%</div><div class="l">Maîtrise globale</div></div>
+    <div class="stat"><div class="n">${readF}/${totF}</div><div class="l">Fiches lues</div></div>
+    <div class="stat"><div class="n">${ansQ}</div><div class="l">Questions traitées</div></div>
+    <div class="stat"><div class="n">${store.exam.best}%</div><div class="l">Meilleur examen blanc</div></div>`;
+  document.getElementById('homeThemes').innerHTML=THEMES.map(t=>{
+    const p=themeMastery(t.id);const[bl,bc]=badge(p);
+    return `<div class="tcard" onclick="openTheme('${t.id}')">
+      <div class="ic">${t.ic}</div><h3>${t.name}</h3><p>${t.desc}</p>
+      <div class="bar"><span style="width:${p}%"></span></div>
+      <div class="meta"><span>${t.fiches.length} fiches · ${t.quiz.length} questions</span><span class="badge ${bc}">${bl} ${p}%</span></div>
+    </div>`;
+  }).join('');
+}
+function openTheme(id){show('fiches');openFiche(id);}
+
+/* ============================ FICHES ============================ */
+function renderFichesThemes(){
+  document.getElementById('fichesThemes').innerHTML=THEMES.map(t=>{
+    const fRead=(store.fiches[t.id]||[]).length, fTot=t.fiches.length;
+    const p=Math.round(fRead/fTot*100);
+    return `<div class="tcard" onclick="openFiche('${t.id}')">
+      <div class="ic">${t.ic}</div><h3>${t.name}</h3><p>${t.desc}</p>
+      <div class="bar"><span style="width:${p}%"></span></div>
+      <div class="meta"><span>${fRead}/${fTot} fiches lues</span><span>${p}%</span></div>
+    </div>`;
+  }).join('');
+}
+function openFiche(id){
+  const t=THEMES.find(x=>x.id===id);
+  document.getElementById('fichesList').style.display='none';
+  const d=document.getElementById('ficheDetail');d.style.display='block';
+  const read=store.fiches[id]||[];
+  d.innerHTML=`<button class="backbtn" onclick="show('fiches')">← Tous les thèmes</button>
+    <h2 class="section">${t.ic} ${t.name}</h2>
+    <p class="lead">${t.fiches.length} fiches. Clique « J'ai révisé » en bas d'une fiche pour la valider.</p>
+    ${t.fiches.map((f,i)=>{
+      const done=read.includes(i);
+      return `<div class="fiche">
+        <h3>${i+1}. ${f.t} ${done?'<span class="badge b-done">✓ lue</span>':''}</h3>
+        <ul>${f.pts.map(p=>`<li>${p}</li>`).join('')}</ul>
+        <div style="margin-top:14px">
+          <button class="btn ${done?'sec':''}" onclick="markFiche('${id}',${i},this)">${done?'✓ Révisé':"J'ai révisé cette fiche"}</button>
+        </div>
+      </div>`;
+    }).join('')}
+    <div style="margin-top:20px;text-align:center">
+      <button class="btn sec" onclick="quickQuiz('${id}')">🎯 Tester ce thème (QCM)</button>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function markFiche(id,i,btn){
+  const arr=store.fiches[id];
+  if(!arr.includes(i)){arr.push(i);save();btn.textContent='✓ Révisé';btn.classList.add('sec');
+    const h=btn.closest('.fiche').querySelector('h3');if(!h.querySelector('.badge'))h.insertAdjacentHTML('beforeend',' <span class="badge b-done">✓ lue</span>');}
+}
+function quickQuiz(id){selThemes=new Set([id]);selCount=Math.min(10,THEMES.find(t=>t.id===id).quiz.length);show('quiz');startQuizRun();}
+
+/* ============================ QUIZ ============================ */
+let selThemes=new Set(THEMES.map(t=>t.id));
+let selCount=10;
+function renderQuizSetup(){
+  document.getElementById('quizSetup').style.display='block';
+  document.getElementById('quizRun').style.display='none';
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizChips').innerHTML=THEMES.map(t=>
+    `<div class="chip ${selThemes.has(t.id)?'sel':''}" onclick="toggleTheme('${t.id}')">${t.ic} ${t.name}</div>`).join('');
+  const counts=[5,10,15,20];
+  document.getElementById('quizCount').innerHTML=counts.map(c=>
+    `<div class="chip ${selCount===c?'sel':''}" onclick="setCount(${c})">${c} questions</div>`).join('');
+}
+function toggleTheme(id){if(selThemes.has(id)){if(selThemes.size>1)selThemes.delete(id)}else selThemes.add(id);renderQuizSetup();}
+function setCount(c){selCount=c;renderQuizSetup();}
+document.getElementById('startQuiz').onclick=startQuizRun;
+
+let session=null;
+function buildPool(ids){let pool=[];ids.forEach(id=>{THEMES.find(t=>t.id===id).quiz.forEach((q,qi)=>pool.push({...q,theme:id,qi}))});return shuffle(pool);}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
+
+function startQuizRun(){
+  const pool=buildPool([...selThemes]).slice(0,selCount);
+  session={pool,idx:0,correct:0,mode:'quiz',answers:[]};
+  document.getElementById('quizSetup').style.display='none';
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizRun').style.display='block';
+  renderQ('quizRun');
+}
+function startExamRun(){
+  const pool=buildPool(THEMES.map(t=>t.id)).slice(0,Math.min(20,THEMES.reduce((a,t)=>a+t.quiz.length,0)));
+  session={pool,idx:0,correct:0,mode:'exam',answers:[]};
+  document.getElementById('examRun').style.display='block';
+  document.getElementById('examResult').style.display='none';
+  renderQ('examRun');
+}
+document.getElementById('startExam').onclick=startExamRun;
+
+function renderQ(container){
+  const q=session.pool[session.idx];
+  const c=document.getElementById(container);
+  const tName=THEMES.find(t=>t.id===q.theme).name;
+  c.innerHTML=`<div class="qbox">
+    <div class="qhead"><span>${session.mode==='exam'?'Examen blanc':tName}</span><span>Question ${session.idx+1}/${session.pool.length} · ✓ ${session.correct}</span></div>
+    <div class="qprog"><span style="width:${(session.idx)/session.pool.length*100}%"></span></div>
+    <div class="qtext">${q.q}</div>
+    <div id="opts">${q.o.map((o,i)=>`<button class="opt" onclick="answer(${i},'${container}')"><span>${o}</span></button>`).join('')}</div>
+    <div class="expl" id="expl"><span class="lbl">💡 Explication</span><span id="explTxt"></span><div class="src">📖 Source : ${q.s}</div></div>
+    <div class="qnav"><span></span><button class="btn" id="nextBtn" style="display:none" onclick="nextQ('${container}')">Suivant →</button></div>
+  </div>`;
+}
+function answer(i,container){
+  const q=session.pool[session.idx];
+  const opts=document.querySelectorAll('#opts .opt');
+  opts.forEach((o,k)=>{o.style.pointerEvents='none';if(k===q.a)o.classList.add('correct');if(k===i&&i!==q.a)o.classList.add('wrong');
+    if(k===q.a)o.querySelector('span').insertAdjacentHTML('afterend','<span class="mk">✓</span>');
+    else if(k===i)o.querySelector('span').insertAdjacentHTML('afterend','<span class="mk">✗</span>');});
+  const ok=i===q.a;if(ok)session.correct++;
+  session.answers.push({theme:q.theme,ok});
+  document.getElementById('explTxt').textContent=' '+q.e;
+  document.getElementById('expl').classList.add('show');
+  document.getElementById('nextBtn').style.display='inline-block';
+  document.getElementById('nextBtn').textContent = session.idx+1>=session.pool.length ? 'Voir le résultat →':'Suivant →';
+  // record per-theme answered
+  store.quiz[q.theme].answered++;if(ok)store.quiz[q.theme].correct++;save();
+}
+function nextQ(container){
+  session.idx++;
+  if(session.idx>=session.pool.length){finish(container);return;}
+  renderQ(container);window.scrollTo(0,0);
+}
+function finish(container){
+  const pct=Math.round(session.correct/session.pool.length*100);
+  // update bests per theme
+  const byTheme={};session.answers.forEach(a=>{byTheme[a.theme]=byTheme[a.theme]||{n:0,c:0};byTheme[a.theme].n++;if(a.ok)byTheme[a.theme].c++;});
+  Object.keys(byTheme).forEach(id=>{const r=byTheme[id].c/byTheme[id].n;if(r>(store.quiz[id].best||0))store.quiz[id].best=r;});
+  if(session.mode==='exam'){store.exam.runs++;if(pct>store.exam.best)store.exam.best=pct;}
+  save();
+  const col=pct>=70?'var(--ok)':pct>=50?'var(--warn)':'var(--ko)';
+  const msg=pct>=70?'Excellent — niveau examen atteint !':pct>=50?'Bien, continue à consolider.':'À retravailler : relis les fiches du thème.';
+  const ring=`background:conic-gradient(${col} ${pct*3.6}deg,#0c1422 0);`;
+  const target = session.mode==='exam' ? 'examResult':'quizResult';
+  document.getElementById(container).style.display='none';
+  const r=document.getElementById(target);r.style.display='block';
+  r.innerHTML=`<div class="result">
+    <div class="score-ring" style="${ring}"><div style="width:108px;height:108px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;color:${col}">${pct}%</div></div>
+    <h3>${session.correct} / ${session.pool.length} bonnes réponses</h3>
+    <p>${msg}</p>
+    <button class="btn" onclick="${session.mode==='exam'?'startExam()':'restartQuiz()'}">↻ Recommencer</button>
+    <button class="btn sec" onclick="show('progress')" style="margin-left:8px">Voir ma progression</button>
+  </div>`;
+  window.scrollTo(0,0);
+}
+function restartQuiz(){renderQuizSetup();}
+window.startExam=startExamRun;
+
+/* ============================ PROGRESS ============================ */
+function renderProgress(){
+  const avg=Math.round(THEMES.reduce((a,t)=>a+themeMastery(t.id),0)/THEMES.length);
+  const ansQ=THEMES.reduce((a,t)=>a+store.quiz[t.id].answered,0);
+  const corrQ=THEMES.reduce((a,t)=>a+store.quiz[t.id].correct,0);
+  const rate=ansQ?Math.round(corrQ/ansQ*100):0;
+  document.getElementById('progStats').innerHTML=`
+    <div class="stat"><div class="n">${avg}%</div><div class="l">Maîtrise globale</div></div>
+    <div class="stat"><div class="n">${rate}%</div><div class="l">Taux de réussite</div></div>
+    <div class="stat"><div class="n">${ansQ}</div><div class="l">Questions traitées</div></div>
+    <div class="stat"><div class="n">${store.exam.best}%</div><div class="l">Meilleur examen blanc</div></div>`;
+  document.getElementById('progRows').innerHTML=THEMES.map(t=>{
+    const p=themeMastery(t.id);const[bl,bc]=badge(p);
+    const fRead=(store.fiches[t.id]||[]).length,fTot=t.fiches.length;
+    const qb=Math.round((store.quiz[t.id].best||0)*100);
+    return `<div class="prow">
+      <div class="top"><span>${t.ic} <b>${t.name}</b> <span class="badge ${bc}">${bl}</span></span><span class="pct" style="color:${p>=80?'var(--ok)':p>0?'var(--warn)':'var(--muted)'}">${p}%</span></div>
+      <div class="bar"><span style="width:${p}%"></span></div>
+      <div class="meta" style="display:flex;justify-content:space-between;font-size:.74rem;color:var(--muted);margin-top:7px">
+        <span>Fiches : ${fRead}/${fTot}</span><span>Meilleur QCM : ${qb}%</span>
+        <span><a href="#" onclick="openTheme('${t.id}');return false" style="color:var(--bleu3)">Réviser →</a></span>
+      </div>
+    </div>`;
+  }).join('');
+}
+document.getElementById('resetBtn').onclick=()=>{
+  if(confirm('Réinitialiser toute ta progression (fiches lues, scores, examens) ?')){store=init();save();renderProgress();renderHome();}
+};
+
+/* ============================ INIT ============================ */
+renderHome();
+</script>
+</body>
+</html>
